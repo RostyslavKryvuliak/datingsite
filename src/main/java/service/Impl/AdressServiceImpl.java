@@ -49,4 +49,22 @@ public class AdressServiceImpl implements AdressService {
 
         return adressDTOS;
     }
+
+    @Override
+    public AdressDTO updateAdressById(Long id, AdressDTO adressToUpdate) {
+
+        boolean exist = adressRepository.existsById(id);
+
+        if(!exist) {
+            return null;
+        }
+
+        AdressEntity adressFromDb = adressRepository.findById(id).get();
+        adressFromDb.setId(adressToUpdate.getId());
+        adressFromDb.setCountry(adressToUpdate.getCountry());
+        adressFromDb.setCity(adressToUpdate.getCity());
+        adressRepository.save(adressFromDb);
+        return null;
+    }
+
 }

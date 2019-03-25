@@ -12,4 +12,6 @@ public interface AdressService {
 
     List<AdressDTO> findAllById();
 
+    AdressDTO updateAdressById(Long id, AdressDTO adressToUpdate);
+
 }

@@ -2,6 +2,8 @@ package service.Impl;
 
 import dto.UserDTO;
 import entity.UserEntity;
+import exeption.ExistsException;
+import exeption.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.UserRepository;
@@ -22,8 +24,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO saveUser(UserDTO user) {
 
+        boolean exists = userRepository.existsByFirstnameIgnoreCase(user.getFirstname());
+        if (exists){
+            throw new ExistsException("User wit name [ " + user.getFirstname() + " ] alredy exists");
+        }
+
         UserEntity userEntity = modelMapper.map(user, UserEntity.class);
-        userEntity.setId(user.getId());
 
         userRepository.save(userEntity );
         return user;
@@ -31,6 +37,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findUserById(Long id) {
+
+        boolean exist = userRepository.existsById(id);
+        if(!exist){
+            throw new NotFoundException("User with id [" + id + "] not found");
+        }
 
         UserEntity userEntity = userRepository.findById(id).get();
 

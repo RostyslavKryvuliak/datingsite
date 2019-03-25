@@ -12,4 +12,6 @@ public interface RegistrationService {
 
     List<RegistrationDTO> findAllById();
 
+    RegistrationDTO updateRegistById(Long id, RegistrationDTO registToUpdate);
+
 }

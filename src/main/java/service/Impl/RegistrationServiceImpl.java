@@ -48,4 +48,23 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         return registrationDTOS;
     }
+
+    @Override
+    public RegistrationDTO updateRegistById(Long id, RegistrationDTO registToUpdate) {
+
+        boolean exist = registrationRepository.existsById(id);
+
+        if(!exist) {
+            return null;
+        }
+
+        RegistrationEntity registFromDb = registrationRepository.findById(id).get();
+        registFromDb.setId(registToUpdate.getId());
+        registFromDb.setLogin(registFromDb.getLogin());
+        registFromDb.setPassword(registFromDb.getPassword());
+        registFromDb.setEmail(registFromDb.getEmail());
+        registrationRepository.save(registFromDb);
+        return null;
+
+    }
 }

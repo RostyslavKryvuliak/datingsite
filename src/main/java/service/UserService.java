@@ -1,13 +1,12 @@
 package service;
 
 import dto.UserDTO;
-import entity.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDTO saveUser(UserDTO user);
+    UserDTO saveUser(UserDTO userDto);
 
     UserDTO findUserById(Long id);
 

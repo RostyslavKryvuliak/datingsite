@@ -12,4 +12,6 @@ public interface AboutMeService {
 
     List<AboutMeDTO > findAllById();
 
+    AboutMeDTO updateAboutMeById(Long id, AboutMeDTO aboutMeToUpdate);
+
 }

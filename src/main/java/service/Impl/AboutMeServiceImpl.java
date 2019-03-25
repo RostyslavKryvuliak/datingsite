@@ -2,6 +2,7 @@ package service.Impl;
 
 import dto.AboutMeDTO;
 import entity.AboutMeEntity;
+import entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.AboutMeRepository;
@@ -48,4 +49,25 @@ public class AboutMeServiceImpl implements AboutMeService {
 
         return aboutMeDTOS;
     }
+
+    @Override
+    public AboutMeDTO updateAboutMeById(Long id, AboutMeDTO aboutMeToUpdate) {
+
+        boolean exist = aboutMeRepository.existsById(id);
+
+        if (!exist) {
+            return null;
+        }
+
+        AboutMeEntity aboutMeFromDb = aboutMeRepository.findById(id).get();
+        aboutMeFromDb.setId(aboutMeToUpdate.getId());
+        aboutMeFromDb.setHeight(aboutMeToUpdate.getHeight());
+        aboutMeFromDb.setWeight(aboutMeToUpdate.getWeight());
+        aboutMeFromDb.setPhysique(aboutMeToUpdate.getPhysique());
+        aboutMeFromDb.setWhyYouEnter(aboutMeToUpdate.getWhyYouEnter());
+        aboutMeFromDb.setAboutYourself(aboutMeToUpdate.getAboutYourself());
+        aboutMeRepository.save(aboutMeFromDb);
+        return null;
+    }
+
 }

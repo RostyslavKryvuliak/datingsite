@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<RegistrationEntity, Long> {
+
+    boolean existsById(Long id);
+
+    boolean existsByPasswordIgnoreCase(String password);
+
 }
