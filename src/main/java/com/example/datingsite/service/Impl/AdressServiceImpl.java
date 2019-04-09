@@ -2,11 +2,11 @@ package com.example.datingsite.service.Impl;
 
 import com.example.datingsite.dto.AdressDTO;
 import com.example.datingsite.entity.AdressEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.example.datingsite.repository.AdressRepository;
 import com.example.datingsite.service.AdressService;
 import com.example.datingsite.utils.ObjectMapperUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -41,13 +41,14 @@ public class AdressServiceImpl implements AdressService {
     }
 
     @Override
-    public List<AdressDTO> findAllById() {
+    public List<AdressDTO> findAll() {
 
         List<AdressEntity> adressEntities = adressRepository.findAll();
 
         List<AdressDTO> adressDTOS = modelMapper.mapAll(adressEntities, AdressDTO.class);
 
         return adressDTOS;
+
     }
 
     @Override
@@ -55,12 +56,11 @@ public class AdressServiceImpl implements AdressService {
 
         boolean exist = adressRepository.existsById(id);
 
-        if(!exist) {
+        if (!exist) {
             return null;
         }
 
         AdressEntity adressFromDb = modelMapper.map(adressToUpdate, AdressEntity.class);
-        adressFromDb.setId(adressToUpdate.getId());
         adressFromDb.setRegion(adressToUpdate.getRegion());
         adressFromDb.setCity(adressToUpdate.getCity());
         adressRepository.save(adressFromDb);

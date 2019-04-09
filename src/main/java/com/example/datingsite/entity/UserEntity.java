@@ -28,9 +28,6 @@ public class UserEntity {
     private Date birthDate;
 
     @OneToOne(mappedBy = "user")
-    private RegistrationEntity registration;
-
-    @OneToOne(mappedBy = "user")
     private AboutMeEntity aboutMe;
 
     @ManyToOne

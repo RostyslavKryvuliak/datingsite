@@ -2,12 +2,12 @@ package com.example.datingsite.service.Impl;
 
 import com.example.datingsite.dto.RegistrationDTO;
 import com.example.datingsite.entity.RegistrationEntity;
-import com.example.datingsite.exeption.ExistsException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.datingsite.exception.ExistsException;
 import com.example.datingsite.repository.RegistrationRepository;
 import com.example.datingsite.service.RegistrationService;
 import com.example.datingsite.utils.ObjectMapperUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -25,12 +25,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     public RegistrationDTO saveRegistration(RegistrationDTO regis) {
 
         boolean exists = registrationRepository.existsByLoginIgnoreCase(regis.getLogin());
-        if (exists){
+        if (exists) {
             throw new ExistsException("User with login [ " + regis.getLogin() + " ] alredy exists");
         }
 
         boolean exists2 = registrationRepository.existsByEmailIgnoreCase(regis.getEmail());
-        if (exists2){
+        if (exists2) {
             throw new ExistsException("User with email [ " + regis.getEmail() + " ] alredy exists");
         }
 
@@ -52,25 +52,27 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public List<RegistrationDTO> findAllById() {
+    public List<RegistrationDTO> findAll() {
+
         List<RegistrationEntity> registrationEntities = registrationRepository.findAll();
 
         List<RegistrationDTO> registrationDTOS = modelMapper.mapAll(registrationEntities, RegistrationDTO.class);
 
         return registrationDTOS;
+
     }
+
 
     @Override
     public RegistrationDTO updateRegistById(Long id, RegistrationDTO registToUpdate) {
 
         boolean exist = registrationRepository.existsById(id);
 
-        if(!exist) {
+        if (!exist) {
             return null;
         }
 
         RegistrationEntity registFromDb = modelMapper.map(registToUpdate, RegistrationEntity.class);
-        registFromDb.setId(registToUpdate.getId());
         registFromDb.setLogin(registFromDb.getLogin());
         registFromDb.setPassword(registFromDb.getPassword());
         registFromDb.setEmail(registFromDb.getEmail());

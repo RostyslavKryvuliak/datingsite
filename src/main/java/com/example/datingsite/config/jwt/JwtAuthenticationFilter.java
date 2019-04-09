@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -36,23 +35,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authToken = null;
         String header = httpServletRequest.getHeader(HEADER_STRING);
 
-        if (header != null && header.startsWith(TOKEN_PREFIX)){
+        if (header != null && header.startsWith(TOKEN_PREFIX)) {
             authToken = header.replace(TOKEN_PREFIX, "");
             username = jwtTokenProvider.getUsernameFromToken(authToken);
-        }else {
+        } else {
             System.out.println("Could not find bearer token");
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if (jwtTokenProvider.validateToken(authToken, userDetails)){
+            if (jwtTokenProvider.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication =
-                  jwtTokenProvider.getAuthentication(authToken,
-                          SecurityContextHolder.getContext().getAuthentication(), userDetails);
+                        jwtTokenProvider.getAuthentication(authToken,
+                                SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource()
-                  .buildDetails(httpServletRequest));
+                        .buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 

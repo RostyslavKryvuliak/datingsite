@@ -8,9 +8,9 @@ public interface RegistrationService {
 
     RegistrationDTO saveRegistration(RegistrationDTO regis);
 
-    RegistrationDTO findRegistrationById (Long id);
+    RegistrationDTO findRegistrationById(Long id);
 
-    List<RegistrationDTO> findAllById();
+    List<RegistrationDTO> findAll();
 
     RegistrationDTO updateRegistById(Long id, RegistrationDTO registToUpdate);
 

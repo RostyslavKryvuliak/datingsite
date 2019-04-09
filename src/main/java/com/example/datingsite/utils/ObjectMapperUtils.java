@@ -11,15 +11,11 @@ import java.util.stream.Collectors;
 @Component
 public class ObjectMapperUtils {
 
-
     private static ModelMapper modelMapper;
 
     static {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    }
-
-    private ObjectMapperUtils() {
     }
 
     public <D, T> D map(final T entity, Class<D> outClass) {

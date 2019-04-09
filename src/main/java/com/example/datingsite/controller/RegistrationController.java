@@ -1,11 +1,11 @@
 package com.example.datingsite.controller;
 
 import com.example.datingsite.dto.RegistrationDTO;
+import com.example.datingsite.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.datingsite.service.RegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,7 +18,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping("/save")
-    public ResponseEntity saveRegist(@Valid @RequestBody RegistrationDTO registrationDTO){
+    public ResponseEntity saveRegist(@Valid @RequestBody RegistrationDTO registrationDTO) {
 
         RegistrationDTO savedRegist = registrationService.saveRegistration(registrationDTO);
         return ResponseEntity.ok(savedRegist);
@@ -32,9 +32,9 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RegistrationDTO>> getAllRegist(){
-        List<RegistrationDTO> regists = registrationService.findAllById();
-        return  new ResponseEntity<>(regists, HttpStatus.OK);
+    public ResponseEntity<List<RegistrationDTO>> getAllRegist() {
+        List<RegistrationDTO> regists = registrationService.findAll();
+        return new ResponseEntity<>(regists, HttpStatus.OK);
     }
 
     @PutMapping("{rehistId}")

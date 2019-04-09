@@ -2,7 +2,6 @@ package com.example.datingsite.dto;
 
 import com.example.datingsite.entity.AboutMeEntity;
 import com.example.datingsite.entity.AdressEntity;
-import com.example.datingsite.entity.RegistrationEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +23,6 @@ public class UserDTO {
 
     @NotBlank
     private Date birthDate;
-
-    private RegistrationEntity registration;
 
     private AboutMeEntity aboutMe;
 

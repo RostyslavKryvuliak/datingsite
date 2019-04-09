@@ -1,11 +1,11 @@
 package com.example.datingsite.controller;
 
 import com.example.datingsite.dto.AdressDTO;
+import com.example.datingsite.service.AdressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.datingsite.service.AdressService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,7 +18,7 @@ public class AdressController {
     private AdressService adressService;
 
     @PostMapping("/save")
-    public ResponseEntity saveAdress(@Valid @RequestBody AdressDTO adressDTO){
+    public ResponseEntity saveAdress(@Valid @RequestBody AdressDTO adressDTO) {
 
         AdressDTO savedAdress = adressService.saveAdress(adressDTO);
         return ResponseEntity.ok(savedAdress);
@@ -32,14 +32,14 @@ public class AdressController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AdressDTO>> getAllAdress(){
-        List<AdressDTO> adress = adressService.findAllById();
-        return  new ResponseEntity<>(adress, HttpStatus.OK);
+    public ResponseEntity<List<AdressDTO>> getAllAdress() {
+        List<AdressDTO> adress = adressService.findAll();
+        return new ResponseEntity<>(adress, HttpStatus.OK);
     }
 
-    @PutMapping("{adressd}")
+    @PutMapping("{addressId}")
     public ResponseEntity<?> updateAdress(
-            @PathVariable("adressId") Long id,
+            @PathVariable("addressId") Long id,
             @RequestBody AdressDTO adressDTO
     ) {
         AdressDTO adressDTO1 = adressService.updateAdressById(id, adressDTO);

@@ -8,9 +8,9 @@ public interface AboutMeService {
 
     AboutMeDTO saveAbouMe(AboutMeDTO aboutMe);
 
-    AboutMeDTO  findAbouMeById(Long id);
+    AboutMeDTO findAbouMeById(Long id);
 
-    List<AboutMeDTO > findAllById();
+    List<AboutMeDTO> findAll();
 
     AboutMeDTO updateAboutMeById(Long id, AboutMeDTO aboutMeToUpdate);
 

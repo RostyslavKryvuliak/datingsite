@@ -33,11 +33,11 @@ public class RegistrationDetailsServiceImpl implements UserDetailsService {
                 .build();
     }
 
-    private List<SimpleGrantedAuthority> getAuthorities(RegistrationEntity registrationEntity){
+    private List<SimpleGrantedAuthority> getAuthorities(RegistrationEntity registrationEntity) {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         registrationEntity.getRoles().forEach(r ->
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + r.getRole())));
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + r.getRole())));
         return authorities;
     }
 

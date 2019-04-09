@@ -5,8 +5,8 @@ import com.example.datingsite.dto.Request.SigninRequest;
 import com.example.datingsite.dto.Request.SignupRequest;
 import com.example.datingsite.entity.RegistrationEntity;
 import com.example.datingsite.entity.RoleEntity;
-import com.example.datingsite.exeption.ExistsException;
-import com.example.datingsite.exeption.NotFoundException;
+import com.example.datingsite.exception.ExistsException;
+import com.example.datingsite.exception.NotFoundException;
 import com.example.datingsite.repository.RegistrationRepository;
 import com.example.datingsite.repository.RoleRepository;
 import com.example.datingsite.service.AuthService;
@@ -41,14 +41,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void registerRegistration(SignupRequest request) {
 
-        if (registrationRepository.existsByEmailIgnoreCase(request.getEmail())){
+        if (registrationRepository.existsByEmailIgnoreCase(request.getEmail())) {
             throw new ExistsException("User with email [" + request.getEmail() + "] already exist");
         }
 
         String login = request.getLogin();
         System.out.println("Login " + login);
 
-        String  password = request.getPassword();
+        String password = request.getPassword();
         System.out.println("Password " + password);
 
         String encPassword = passwordEncoder.encode(password);

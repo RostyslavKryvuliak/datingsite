@@ -1,4 +1,4 @@
-package com.example.datingsite.exeption;
+package com.example.datingsite.exception;
 
 public class NotFoundException extends RuntimeException {
 

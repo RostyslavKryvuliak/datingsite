@@ -10,7 +10,7 @@ public interface AdressService {
 
     AdressDTO findAdressById(Long id);
 
-    List<AdressDTO> findAllById();
+    List<AdressDTO> findAll();
 
     AdressDTO updateAdressById(Long id, AdressDTO adressToUpdate);
 

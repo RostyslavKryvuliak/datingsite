@@ -2,13 +2,12 @@ package com.example.datingsite.service.Impl;
 
 import com.example.datingsite.dto.UserDTO;
 import com.example.datingsite.entity.UserEntity;
-import com.example.datingsite.exeption.ExistsException;
-import com.example.datingsite.exeption.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.datingsite.exception.NotFoundException;
 import com.example.datingsite.repository.UserRepository;
 import com.example.datingsite.service.UserService;
 import com.example.datingsite.utils.ObjectMapperUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity userEntity = modelMapper.map(user, UserEntity.class);
 
-        userRepository.save(userEntity );
+        userRepository.save(userEntity);
         return user;
     }
 
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO findUserById(Long id) {
 
         boolean exist = userRepository.existsById(id);
-        if(!exist){
+        if (!exist) {
             throw new NotFoundException("User with id [" + id + "] not found");
         }
 
@@ -42,28 +41,30 @@ public class UserServiceImpl implements UserService {
 
         UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
 
-      return userDTO;
+        return userDTO;
     }
 
     @Override
-    public List<UserDTO> findAllById() {
+    public List<UserDTO> findAll() {
+
         List<UserEntity> userEntities = userRepository.findAll();
 
         List<UserDTO> userDTOS = modelMapper.mapAll(userEntities, UserDTO.class);
 
         return userDTOS;
+
     }
+
 
     @Override
     public UserDTO updateUserById(Long id, UserDTO userToUpdate) {
         boolean exist = userRepository.existsById(id);
 
-        if(!exist) {
+        if (!exist) {
             return null;
         }
 
         UserEntity userFromDb = modelMapper.map(userToUpdate, UserEntity.class);
-        userFromDb.setId(userToUpdate.getId());
         userFromDb.setFirstname(userToUpdate.getFirstname());
         userFromDb.setGender(userToUpdate.getGender());
         userFromDb.setBirthDate(userToUpdate.getBirthDate());
